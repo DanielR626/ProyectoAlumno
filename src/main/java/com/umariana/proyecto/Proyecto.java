@@ -6,7 +6,7 @@
  */
 package com.umariana.proyecto;
 
-import Mundo.Alumno;
+import Mundo.Alumno; // Importación de la clase Alumno desde el paquete Mundo
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -15,14 +15,15 @@ import java.util.Scanner;
 
 public class Proyecto {
 
-    private static Scanner lector = new Scanner(System.in);
-    private static ArrayList<Alumno> misAlumnos = new ArrayList<>();
+    private static Scanner lector = new Scanner(System.in); // Un objeto Scanner para entrada de usuario
+    private static ArrayList<Alumno> misAlumnos = new ArrayList<>(); // Una lista de objetos Alumno para almacenar datos de alumnos
 
     public static void main(String[] args) throws FileNotFoundException {
-        cargarDatosArchivo();
+        cargarDatosArchivo(); // Cargar datos de archivo al inicio del programa
 
         boolean activo = true;
         do {
+            // Menú de opciones
             System.out.println("Menu de opciones!");
             System.out.println("1. Insertar alumno");
             System.out.println("2. Eliminar alumno");
@@ -34,34 +35,34 @@ public class Proyecto {
             System.out.println("8. Terminar Programa");
             System.out.println("-----------------------------------");
 
-            int option = lector.nextInt();
+            int option = lector.nextInt(); // Leer la opción seleccionada por el usuario
             switch (option) {
                 case 1:
-                    insertarAlumno();
+                    insertarAlumno(); // Llamar a la función para insertar un nuevo alumno
                     break;
 
                 case 2:
-                    eliminarAlumno();
+                    eliminarAlumno(); // Llamar a la función para eliminar un alumno
                     break;
 
                 case 3:
-                    modificarAlumno();
+                    modificarAlumno(); // Llamar a la función para modificar los datos de un alumno
                     break;
 
                 case 4:
-                    consultarAlumno();
+                    consultarAlumno(); // Llamar a la función para consultar la lista de alumnos
                     break;
 
                 case 5:
-                    generarReporte();
+                    generarReporte(); // Llamar a la función para generar un reporte de alumnos
                     break;
 
                 case 6:
-                    guardarDatosArchivo();
+                    guardarDatosArchivo(); // Llamar a la función para guardar los datos en un archivo
                     break;
 
                 case 7:
-                    cargarDatosArchivo();
+                    cargarDatosArchivo(); // Llamar a la función para cargar los datos desde un archivo
                     break;
 
                 case 8:
@@ -75,10 +76,11 @@ public class Proyecto {
             }
         } while (activo);
 
-        lector.close();
+        lector.close(); // Cerrar el objeto Scanner al final del programa
     }
 
     private static void insertarAlumno() {
+        // Captura de datos para un nuevo alumno
         System.out.println("Introduzca la cedula del alumno");
         int cedula = lector.nextInt();
         lector.nextLine();
@@ -94,11 +96,13 @@ public class Proyecto {
         System.out.println("Introduzca el celular del alumno");
         int celular = lector.nextInt();
 
+        // Crear un objeto Alumno y agregarlo a la lista
         Alumno nuevoAlumno = new Alumno(cedula, nombre, apellido, semestre, correoElectronico, celular);
         misAlumnos.add(nuevoAlumno);
         System.out.println("Alumno inserto correctamente :D ");
     }
 
+    // Función para eliminar un alumno por su cédula
     private static void eliminarAlumno() {
         System.out.println("Introduzca la cédula del alumno a eliminar :D");
         int cedulaEliminar = lector.nextInt();
@@ -116,6 +120,7 @@ public class Proyecto {
         }
     }
 
+    // Función para modificar los datos de un alumno por su cédula
     private static void modificarAlumno() {
         System.out.println("Introduce la cédula del alumno a modificar");
         int cedulaModificar = lector.nextInt();
@@ -125,6 +130,7 @@ public class Proyecto {
             if (alumno.getCedula() == cedulaModificar) {
                 modificado = true;
 
+                // Captura de nuevos datos para el alumno
                 System.out.println("Introduce el nuevo número de cédula");
                 int nuevaCedula = lector.nextInt();
                 lector.nextLine();
@@ -140,6 +146,7 @@ public class Proyecto {
                 System.out.println("Introduce el nuevo celular");
                 int nuevoCelular = lector.nextInt();
 
+                // Actualización de los datos del alumno
                 alumno.setCedula(nuevaCedula);
                 alumno.setNombre(nuevoNombre);
                 alumno.setApellido(nuevoApellido);
@@ -157,6 +164,7 @@ public class Proyecto {
         }
     }
 
+    // Función para consultar y mostrar la lista de alumnos
     private static void consultarAlumno() {
         System.out.println("Listado de alumnos ingresados:");
 
@@ -165,6 +173,7 @@ public class Proyecto {
             return;
         }
 
+        // Mostrar los datos de cada alumno
         for (Alumno alumno : misAlumnos) {
             System.out.println("Cédula: " + alumno.getCedula());
             System.out.println("Nombre: " + alumno.getNombre());
@@ -176,6 +185,7 @@ public class Proyecto {
         }
     }
 
+    // Función para generar un reporte de todos los alumnos
     private static void generarReporte() {
         System.out.println("Reporte de todos los alumnos ingresados");
         System.out.println("------------------------------------------------------------");
@@ -193,11 +203,13 @@ public class Proyecto {
         System.out.println("Reporte generado exitosamente");
     }
 
+    // Función para guardar los datos de los alumnos en un archivo
     private static void guardarDatosArchivo() {
         try {
             File archivo = new File("./data/reporteAlumno.txt");
             PrintWriter pluma = new PrintWriter(archivo);
 
+            // Escribir los datos de los alumnos en el archivo
             for (Alumno alumno : misAlumnos) {
                 pluma.println(alumno.getCedula() + "," + alumno.getNombre() + "," + alumno.getApellido() + ","
                         + alumno.getSemestre() + "," + alumno.getCorreoElectronico() + "," + alumno.getCelular());
@@ -210,11 +222,13 @@ public class Proyecto {
         }
     }
 
+    // Función para cargar los datos de los alumnos desde un archivo
     private static void cargarDatosArchivo() {
         try {
             File archivo = new File("./data/reporteAlumno.txt");
             Scanner scanner = new Scanner(archivo);
 
+            // Leer y procesar cada línea del archivo
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine();
                 String[] partes = linea.split(",");
@@ -225,6 +239,7 @@ public class Proyecto {
                 String correoElectronico = partes[4];
                 int celular = Integer.parseInt(partes[5]);
 
+                // Crear un objeto Alumno y agregarlo a la lista
                 Alumno alumno = new Alumno(cedula, nombre, apellido, semestre, correoElectronico, celular);
                 misAlumnos.add(alumno);
             }

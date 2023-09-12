@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+/**
+ * Daniel Revelo
+ */
 package Mundo;
 
 public class Alumno {
+
     private static int contadorCedulas = 1;
     private int cedula;
     private String nombre;
@@ -72,7 +76,6 @@ public class Alumno {
 
     public void setCelular(int celular) {
         this.celular = celular;
-        
-        
+
     }
 }
